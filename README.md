@@ -1,838 +1,666 @@
-* {
-  box-sizing: border-box;
-}
-
-:root {
-  --bg: #07131b;
-  --bg-2: #0d1e2b;
-  --panel: rgba(18, 32, 42, 0.84);
-  --panel-strong: rgba(13, 28, 36, 0.96);
-  --card: rgba(25, 46, 58, 0.88);
-  --text: #ecf5ff;
-  --muted: #94a8b8;
-  --primary: #31d1ff;
-  --secondary: #9d7ef5;
-  --accent: #ff5fa2;
-  --gold: #fbbf24;
-  --green: #34d399;
-  --border: rgba(255, 255, 255, 0.08);
-  --shadow: 0 24px 60px rgba(0, 0, 0, 0.38);
-}
-
-html,
-body {
-  margin: 0;
-  min-height: 100%;
-  background:
-    radial-gradient(circle at top left, rgba(49, 209, 255, 0.16), transparent 18%),
-    radial-gradient(circle at bottom right, rgba(157, 126, 245, 0.16), transparent 24%),
-    linear-gradient(135deg, var(--bg) 0%, var(--bg-2) 100%);
-  color: var(--text);
-  font-family: 'Inter', sans-serif;
-}
-
-body {
-  min-height: 100vh;
-}
-
-button,
-input {
-  font: inherit;
-}
-
-button {
-  cursor: pointer;
-}
-
-.app-shell {
-  max-width: 1500px;
-  margin: 0 auto;
-  padding: 22px 18px 28px;
-}
-
-.topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-  padding: 16px 20px;
-  border: 1px solid var(--border);
-  border-radius: 22px;
-  background: rgba(11, 23, 31, 0.72);
-  backdrop-filter: blur(12px);
-  box-shadow: var(--shadow);
-}
-
-.brand-wrap {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.brand-mark {
-  display: grid;
-  place-items: center;
-  width: 52px;
-  height: 52px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: #04151d;
-  font-weight: 900;
-  box-shadow: 0 12px 30px rgba(49, 209, 255, 0.22);
-}
-
-.eyebrow {
-  margin: 0;
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-h1 {
-  margin: 3px 0 0;
-  font-size: 1.45rem;
-  font-weight: 800;
-}
-
-.topnav {
-  display: flex;
-  gap: 28px;
-}
-
-.topnav a {
-  text-decoration: none;
-  color: var(--muted);
-  font-weight: 600;
-}
-
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.primary-btn,
-.secondary-btn,
-.action-btn,
-.mini-btn,
-.genre-chip {
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-}
-
-.secondary-btn,
-.primary-btn {
-  padding: 10px 14px;
-  font-weight: 700;
-}
-
-.primary-btn {
-  background: linear-gradient(135deg, var(--primary), #7ef0ff);
-  color: #04151d;
-}
-
-.secondary-btn {
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--text);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.status-pill {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 78px;
-  height: 32px;
-  padding: 0 12px;
-  border-radius: 999px;
-  font-size: 0.7rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.status-pill.online {
-  background: rgba(52, 211, 153, 0.15);
-  color: #8cf0c7;
-}
-
-.status-pill.offline {
-  background: rgba(255, 95, 162, 0.12);
-  color: #ff9bc8;
-}
-
-.dashboard {
-  display: grid;
-  grid-template-columns: 320px minmax(0, 1fr) 300px;
-  gap: 22px;
-  margin-top: 22px;
-}
-
-.panel {
-  background: rgba(7, 18, 25, 0.82);
-  border: 1px solid var(--border);
-  border-radius: 24px;
-  box-shadow: var(--shadow);
-}
-
-.sidebar,
-.queue {
-  padding: 18px;
-}
-
-.panel-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 18px;
-}
-
-.panel-header h2 {
-  margin: 0;
-  font-size: 1.15rem;
-}
-
-.badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 36px;
-  height: 30px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--text);
-  font-weight: 700;
-}
-
-.badge.accent {
-  background: rgba(255, 95, 162, 0.15);
-  color: #ff9bc8;
-}
-
-.search-box {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
-  padding: 11px 12px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.02);
-  color: var(--muted);
-}
-
-.search-box input {
-  width: 100%;
-  background: transparent;
-  border: none;
-  color: var(--text);
-  outline: none;
-}
-
-.genre-filter {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 18px;
-}
-
-.genre-chip {
-  padding: 8px 12px;
-  background: rgba(255, 255, 255, 0.04);
-  color: var(--text);
-  border: 1px solid transparent;
-  transition: 0.2s ease;
-}
-
-.genre-chip.active {
-  background: linear-gradient(135deg, rgba(49, 209, 255, 0.22), rgba(157, 126, 245, 0.2));
-  border-color: rgba(49, 209, 255, 0.4);
-}
-
-.library-list,
-.queue-list {
-  margin-top: 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.track-item,
-.queue-item {
-  display: grid;
-  grid-template-columns: 46px 1fr auto;
-  align-items: center;
-  gap: 12px;
-  padding: 11px 10px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.025);
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-.track-item:hover,
-.queue-item:hover {
-  transform: translateY(-1px);
-  border-color: rgba(49, 209, 255, 0.3);
-}
-
-.track-item.selected {
-  background: linear-gradient(135deg, rgba(49, 209, 255, 0.12), rgba(157, 126, 245, 0.08));
-  border-color: rgba(49, 209, 255, 0.28);
-}
-
-.track-art {
-  width: 46px;
-  height: 46px;
-  border-radius: 12px;
-  display: grid;
-  place-items: center;
-  font-size: 1.2rem;
-  background: linear-gradient(135deg, #ff7ecf, #7a63ff 50%, #4ae3c8);
-}
-
-.track-details {
-  min-width: 0;
-}
-
-.track-details h4,
-.queue-item h4 {
-  margin: 0;
-  font-size: 0.98rem;
-}
-
-.track-details p,
-.queue-item p {
-  margin: 3px 0 0;
-  font-size: 0.76rem;
-  color: var(--muted);
-}
-
-.track-bpm {
-  font-size: 0.76rem;
-  color: var(--primary);
-  font-weight: 700;
-}
-
-.empty-state {
-  color: var(--muted);
-  padding: 18px 10px;
-}
-
-.main-stage {
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
-}
-
-.stats-row {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px;
-}
-
-.stat-card {
-  padding: 16px 18px;
-  border-radius: 18px;
-  background: rgba(12, 25, 33, 0.8);
-  border: 1px solid var(--border);
-}
-
-.stat-card span {
-  display: block;
-  font-size: 0.76rem;
-  color: var(--muted);
-  margin-bottom: 8px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.stat-card strong {
-  font-size: 1.08rem;
-}
-
-.decks-wrap {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
-}
-
-.deck {
-  padding: 18px;
-}
-
-.deck-topline {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-.deck-meta-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 12px;
-}
-
-.chip {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  min-height: 28px;
-  padding: 0 10px;
-  border-radius: 999px;
-  background: rgba(49, 209, 255, 0.1);
-  color: var(--text);
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.chip.danger {
-  background: rgba(255, 95, 162, 0.12);
-  color: #ff9bc8;
-}
-
-.label {
-  margin: 0 0 4px;
-  color: var(--muted);
-  text-transform: uppercase;
-  font-size: 0.7rem;
-  letter-spacing: 0.14em;
-}
-
-.deck-topline h3 {
-  margin: 0;
-  font-size: 1.2rem;
-}
-
-.status-bubble {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 64px;
-  height: 28px;
-  padding: 0 10px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--muted);
-  font-size: 0.7rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-}
-
-.status-bubble.online {
-  background: rgba(52, 211, 153, 0.15);
-  color: #8cf0c7;
-}
-
-.artwork {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 180px;
-  border-radius: 18px;
-  margin: 18px 0;
-  color: #fff;
-  position: relative;
-  overflow: hidden;
-  box-shadow: inset 0 0 20px rgba(255,255,255,0.08);
-}
-
-.artwork::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.18), transparent 40%);
-}
-
-.art-emoji {
-  position: relative;
-  z-index: 1;
-  font-size: 4rem;
-}
-
-.track-meta {
-  display: flex;
-  justify-content: space-between;
-  gap: 18px;
-  margin-bottom: 16px;
-}
-
-.track-meta p {
-  margin: 0 0 4px;
-  font-size: 0.72rem;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-.track-meta strong {
-  font-size: 0.95rem;
-}
-
-.waveform-card {
-  padding: 12px 12px 10px;
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.02);
-}
-
-.waveform-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 8px;
-  color: var(--muted);
-  font-size: 0.72rem;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-}
-
-.mini-tag {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 22px;
-  height: 22px;
-  border-radius: 8px;
-  background: rgba(49, 209, 255, 0.12);
-  color: var(--primary);
-  font-weight: 800;
-}
-
-.waveform-shell {
-  position: relative;
-  height: 110px;
-  border-radius: 14px;
-  overflow: hidden;
-  background: linear-gradient(180deg, rgba(9, 22, 31, 0.85), rgba(15, 35, 45, 0.75));
-  border: 1px solid rgba(255,255,255,0.06);
-  user-select: none;
-}
-
-.waveform-bars {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: flex-end;
-  gap: 3px;
-  padding: 10px 8px 8px;
-}
-
-.waveform-bars span {
-  flex: 1;
-  min-width: 2px;
-  border-radius: 6px 6px 0 0;
-  background: linear-gradient(180deg, #69e9ff 0%, #7a63ff 100%);
-  opacity: 0.9;
-  animation: pulse 1.2s ease-in-out infinite alternate;
-}
-
-.waveform-bars span:nth-child(odd) {
-  background: linear-gradient(180deg, #ffd166 0%, #ff5fa2 100%);
-}
-
-.beat-grid {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-.beat-grid span {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background: rgba(255, 255, 255, 0.18);
-}
-
-.playhead {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(49,209,255,0.8));
-  box-shadow: 0 0 12px rgba(49,209,255,0.8);
-}
-
-.cue-marker {
-  position: absolute;
-  top: 0;
-  width: 2px;
-  height: 100%;
-  background: rgba(255, 184, 77, 0.9);
-  box-shadow: 0 0 12px rgba(255,184,77,0.8);
-  cursor: grab;
-}
-
-.cue-marker span {
-  position: absolute;
-  top: 6px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 22px;
-  height: 18px;
-  padding: 0 4px;
-  border-radius: 999px;
-  background: rgba(255, 184, 77, 0.16);
-  border: 1px solid rgba(255, 184, 77, 0.5);
-  color: #ffd477;
-  font-size: 0.62rem;
-  font-weight: 800;
-}
-
-.cue-marker.cue-b {
-  background: rgba(49, 209, 255, 0.9);
-  box-shadow: 0 0 12px rgba(49,209,255,0.8);
-}
-
-.cue-marker.cue-b span {
-  color: #a1ecff;
-  border-color: rgba(49,209,255,0.5);
-  background: rgba(49,209,255,0.12);
-}
-
-@keyframes pulse {
-  0% { transform: scaleY(0.45); opacity: 0.8; }
-  100% { transform: scaleY(1); opacity: 1; }
-}
-
-.transport-row {
-  display: flex;
-  gap: 10px;
-  margin-top: 16px;
-  flex-wrap: wrap;
-}
-
-.mini-btn,
-.action-btn {
-  padding: 10px 14px;
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--text);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  font-weight: 700;
-}
-
-.mini-btn.accent,
-.action-btn.accent {
-  background: linear-gradient(135deg, rgba(49, 209, 255, 0.18), rgba(157, 126, 245, 0.18));
-}
-
-.mini-btn:hover,
-.action-btn:hover,
-.secondary-btn:hover {
-  border-color: rgba(49, 209, 255, 0.28);
-}
-
-.eq-row {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px;
-  margin-top: 18px;
-}
-
-.eq-control {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255,255,255,0.04);
-  border-radius: 12px;
-  padding: 10px 12px;
-}
-
-.eq-control label {
-  font-size: 0.7rem;
-  color: var(--muted);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.meters {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
-  margin-top: 18px;
-}
-
-.meter-box {
-  background: rgba(255, 255, 255, 0.02);
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  padding: 10px 12px;
-}
-
-.meter-box span {
-  display: block;
-  font-size: 0.72rem;
-  color: var(--muted);
-  margin-bottom: 8px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-input[type='range'] {
-  width: 100%;
-  accent-color: var(--primary);
-}
-
-.mix-console {
-  padding: 18px 20px;
-}
-
-.console-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 18px;
-}
-
-.console-header h2 {
-  margin: 0;
-  font-size: 1.15rem;
-}
-
-.console-header span {
-  color: var(--green);
-  font-size: 0.78rem;
-  font-weight: 700;
-}
-
-.console-body {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-}
-
-.eq-panel {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-}
-
-.eq-knob {
-  width: 88px;
-  text-align: center;
-}
-
-.eq-knob span {
-  display: block;
-  margin-bottom: 8px;
-  color: var(--muted);
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-}
-
-.knob {
-  width: 56px;
-  height: 56px;
-  margin: 0 auto;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #fff, #9ae6ff 12%, #1d3d52 60%, #0d1b27 100%);
-  border: 6px solid rgba(255,255,255,0.08);
-  box-shadow: inset 0 6px 16px rgba(255,255,255,0.15);
-}
-
-.crossfader-wrap {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex: 1;
-  min-width: 0;
-  max-width: 420px;
-}
-
-.crossfader-wrap span {
-  font-size: 0.76rem;
-  font-weight: 700;
-  color: var(--muted);
-}
-
-.mix-actions {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.action-btn.secondary {
-  background: rgba(157, 126, 245, 0.12);
-}
-
-.queue-item {
-  grid-template-columns: 42px 1fr auto;
-}
-
-.queue-item .queue-art {
-  width: 42px;
-  height: 42px;
-  border-radius: 10px;
-  display: grid;
-  place-items: center;
-  background: linear-gradient(135deg, #4ae3c8, #31d1ff, #9d7ef5);
-  font-size: 1.1rem;
-}
-
-.queue-time {
-  color: var(--muted);
-  font-size: 0.8rem;
-}
-
-@media (max-width: 1150px) {
-  .dashboard {
-    grid-template-columns: 1fr;
+const demoTracks = [
+  { id: 1, title: 'BollyBeat Rush', artist: 'Aarav Shah', genre: 'Bollywood', bpm: 128, mood: 'High Energy', duration: '03:28', source: 'remote', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', cuePoints: { left: 14, right: 62, playhead: 22 } },
+  { id: 2, title: 'Punjab Sunset', artist: 'Jass Singh', genre: 'Bhangra', bpm: 132, mood: 'Festive', duration: '03:44', source: 'remote', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3', cuePoints: { left: 18, right: 66, playhead: 38 } },
+  { id: 3, title: 'Silver Dhols', artist: 'Riya Kaur', genre: 'Punjali', bpm: 126, mood: 'Glow', duration: '04:09', source: 'remote', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3', cuePoints: { left: 24, right: 58, playhead: 26 } },
+  { id: 4, title: 'Temple Pulse', artist: 'Mithran V', genre: 'Tamil', bpm: 118, mood: 'Groove', duration: '03:52', source: 'remote', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3', cuePoints: { left: 16, right: 70, playhead: 30 } },
+  { id: 5, title: 'Saffron Dreams', artist: 'Nisha Rao', genre: 'Telugu', bpm: 121, mood: 'Warm', duration: '04:16', source: 'remote', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3', cuePoints: { left: 20, right: 64, playhead: 35 } },
+  { id: 6, title: 'Rain in Pune', artist: 'Aditya Kale', genre: 'Marathi', bpm: 110, mood: 'Smooth', duration: '03:42', source: 'remote', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3', cuePoints: { left: 12, right: 60, playhead: 28 } },
+  { id: 7, title: 'Midnight Ghazal', artist: 'Sameera Ali', genre: 'Ghazal', bpm: 92, mood: 'Dreamy', duration: '05:01', source: 'remote', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3', cuePoints: { left: 30, right: 72, playhead: 42 } },
+  { id: 8, title: 'Jazzantra Mix', artist: 'The Fusion Club', genre: 'Fusion', bpm: 124, mood: 'Club', duration: '04:08', source: 'remote', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3', cuePoints: { left: 21, right: 68, playhead: 31 } },
+  { id: 9, title: 'Diwali Lights', artist: 'Roshaan', genre: 'Bollywood', bpm: 130, mood: 'Epic', duration: '03:58', source: 'remote', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3', cuePoints: { left: 15, right: 64, playhead: 23 } },
+  { id: 10, title: 'Balle Balle Echo', artist: 'Harnoor', genre: 'Punjabi', bpm: 134, mood: 'Crowd', duration: '03:31', source: 'remote', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3', cuePoints: { left: 28, right: 70, playhead: 44 } }
+];
+
+const genreColors = {
+  Bollywood: 'linear-gradient(135deg, #ff7ba4, #ffb84d, #4cc9ff)',
+  Bhangra: 'linear-gradient(135deg, #ff9a3d, #ffe66d, #ff5fa2)',
+  Punjabi: 'linear-gradient(135deg, #ef476f, #ffd166, #06d6a0)',
+  Tamil: 'linear-gradient(135deg, #3a86ff, #7ec8e3, #90f1ef)',
+  Telugu: 'linear-gradient(135deg, #9d7ef5, #4cc9ff, #d4d4d8)',
+  Marathi: 'linear-gradient(135deg, #4957f7, #2ec4b6, #f4d35e)',
+  Ghazal: 'linear-gradient(135deg, #b5179e, #ff7096, #ffd166)',
+  Fusion: 'linear-gradient(135deg, #00f5d4, #00bbf9, #9b5de5)',
+};
+
+const state = {
+  activeGenre: 'all',
+  query: '',
+  selectedTrackId: 1,
+  offline: !navigator.onLine,
+  crossfaderValue: 52,
+  deferredPrompt: null,
+  library: [...demoTracks],
+  audioContext: null,
+  engine: null,
+};
+
+const refs = {
+  libraryList: document.getElementById('libraryList'),
+  queueList: document.getElementById('queueList'),
+  trackCount: document.getElementById('trackCount'),
+  queueCount: document.getElementById('queueCount'),
+  queueTotal: document.getElementById('queueTotal'),
+  searchInput: document.getElementById('searchInput'),
+  genreButtons: [...document.querySelectorAll('.genre-chip')],
+  crossfader: document.getElementById('crossfader'),
+  installAppBtn: document.getElementById('installAppBtn'),
+  addTracksBtn: document.getElementById('addTracksBtn'),
+  trackUploadInput: document.getElementById('trackUploadInput'),
+  connectionStatus: document.getElementById('connectionStatus'),
+  audioA: document.getElementById('audioA'),
+  audioB: document.getElementById('audioB'),
+  deckATitle: document.getElementById('deckATitle'),
+  deckBTitle: document.getElementById('deckBTitle'),
+  deckAArtist: document.getElementById('deckAArtist'),
+  deckBArtist: document.getElementById('deckBArtist'),
+  deckAGenre: document.getElementById('deckAGenre'),
+  deckBGenre: document.getElementById('deckBGenre'),
+  deckABpm: document.getElementById('deckABpm'),
+  deckBBpm: document.getElementById('deckBBpm'),
+  globalTempo: document.getElementById('globalTempo'),
+  playA: document.getElementById('playA'),
+  playB: document.getElementById('playB'),
+  cueA: document.getElementById('cueA'),
+  cueB: document.getElementById('cueB'),
+  syncA: document.getElementById('syncA'),
+  syncB: document.getElementById('syncB'),
+  gainA: document.getElementById('gainA'),
+  gainB: document.getElementById('gainB'),
+  tempoA: document.getElementById('tempoA'),
+  tempoB: document.getElementById('tempoB'),
+  lowA: document.getElementById('lowA'),
+  lowB: document.getElementById('lowB'),
+  midA: document.getElementById('midA'),
+  midB: document.getElementById('midB'),
+  highA: document.getElementById('highA'),
+  highB: document.getElementById('highB'),
+};
+
+function inferGenreFromText(text) {
+  const value = (text || '').toLowerCase();
+  if (value.includes('bhangra') || value.includes('dhol') || value.includes('punjabi')) return 'Punjabi';
+  if (value.includes('bollywood') || value.includes('movie') || value.includes('masti')) return 'Bollywood';
+  if (value.includes('tamil') || value.includes('song') || value.includes('temple')) return 'Tamil';
+  if (value.includes('telugu') || value.includes('saffron') || value.includes('drama')) return 'Telugu';
+  if (value.includes('marathi') || value.includes('rain') || value.includes('pune')) return 'Marathi';
+  if (value.includes('ghazal') || value.includes('sufi') || value.includes('midnight')) return 'Ghazal';
+  if (value.includes('fusion') || value.includes('mix') || value.includes('club')) return 'Fusion';
+  return 'Fusion';
+}
+
+function autoOrganizeLibrary() {
+  state.library = [...state.library].sort((a, b) => {
+    const order = ['Bollywood', 'Punjabi', 'Bhangra', 'Fusion', 'Tamil', 'Telugu', 'Marathi', 'Ghazal'];
+    return (order.indexOf(a.genre) - order.indexOf(b.genre)) || a.title.localeCompare(b.title);
+  });
+}
+
+function getVisibleTracks() {
+  const searchValue = state.query.trim().toLowerCase();
+  return state.library.filter((track) => {
+    const matchesGenre = state.activeGenre === 'all' || track.genre === state.activeGenre;
+    const matchesSearch = !searchValue || `${track.title} ${track.artist} ${track.genre}`.toLowerCase().includes(searchValue);
+    return matchesGenre && matchesSearch;
+  });
+}
+
+function updateConnectionStatus() {
+  refs.connectionStatus.textContent = state.offline ? 'Offline' : 'Online';
+  refs.connectionStatus.classList.toggle('online', !state.offline);
+  refs.connectionStatus.classList.toggle('offline', state.offline);
+}
+
+function getWaveformBars(count = 48) {
+  const result = [];
+  for (let i = 0; i < count; i += 1) {
+    const height = 12 + Math.random() * 56;
+    result.push({ height, delay: i * 0.05 });
+  }
+  return result;
+}
+
+function buildWaveform(targetId) {
+  const container = document.getElementById(targetId);
+  if (!container) return;
+
+  container.innerHTML = '';
+
+  getWaveformBars().forEach((bar) => {
+    const element = document.createElement('span');
+    element.style.height = `${bar.height}px`;
+    element.style.animationDelay = `${bar.delay}s`;
+    container.appendChild(element);
+  });
+}
+
+function updateDeckText(track) {
+  const nextTrack = state.library.find((item) => item.id !== track.id) || track;
+
+  refs.deckATitle.textContent = track.title;
+  refs.deckBTitle.textContent = nextTrack.title;
+  refs.deckAArtist.textContent = track.artist;
+  refs.deckBArtist.textContent = nextTrack.artist;
+  refs.deckAGenre.textContent = track.genre;
+  refs.deckBGenre.textContent = nextTrack.genre;
+  refs.deckABpm.textContent = String(track.bpm || 128);
+  refs.deckBBpm.textContent = String(nextTrack.bpm || 128);
+  refs.globalTempo.textContent = `${track.bpm || 128} BPM`;
+
+  const artA = document.querySelector('.artwork-a');
+  const artB = document.querySelector('.artwork-b');
+  artA.style.background = genreColors[track.genre] || genreColors.Fusion;
+  artB.style.background = genreColors[nextTrack.genre] || genreColors.Fusion;
+
+  buildWaveform('waveformA');
+  buildWaveform('waveformB');
+  updateWaveformMarkers('A');
+  updateWaveformMarkers('B');
+}
+
+function updateWaveformMarkers(deckKey) {
+  const shell = document.getElementById(`waveformShell${deckKey}`);
+  if (!shell) return;
+
+  const track = state.library.find((item) => item.id === state.selectedTrackId) || state.library[0];
+  if (!track) return;
+
+  const cueMarkers = shell.querySelectorAll('.cue-marker');
+  cueMarkers.forEach((marker) => {
+    const cueType = marker.dataset.cue;
+    const value = track.cuePoints?.[cueType] ?? (cueType === 'left' ? 18 : 66);
+    marker.style.left = `${value}%`;
+  });
+
+  const playhead = shell.querySelector('.playhead');
+  if (playhead) {
+    const left = track.cuePoints?.playhead ?? 30;
+    playhead.style.left = `${left}%`;
   }
 
-  .sidebar,
-  .queue {
-    order: 2;
-  }
-
-  .main-stage {
-    order: 1;
+  const cueText = deckKey === 'A' ? refs.deckACuePoint : refs.deckBCuePoint;
+  if (cueText) {
+    cueText.textContent = `${track.cuePoints?.playhead ?? 30}%`;
   }
 }
 
-@media (max-width: 720px) {
-  .app-shell {
-    padding: 14px;
+function renderLibrary() {
+  const visibleTracks = getVisibleTracks();
+  refs.libraryList.innerHTML = '';
+  refs.trackCount.textContent = String(visibleTracks.length);
+
+  if (!visibleTracks.length) {
+    refs.libraryList.innerHTML = '<div class="empty-state">No tracks found.</div>';
+    return;
   }
 
-  .topbar {
-    flex-wrap: wrap;
+  visibleTracks.forEach((track) => {
+    const item = document.createElement('div');
+    item.className = `track-item ${track.id === state.selectedTrackId ? 'selected' : ''}`;
+    item.dataset.trackId = track.id;
+
+    item.innerHTML = `
+      <div class="track-art">${track.genre === 'Bollywood' ? '🎶' : track.genre === 'Bhangra' ? '🥁' : track.genre === 'Punjabi' ? '🎧' : track.genre === 'Tamil' ? '🌙' : track.genre === 'Telugu' ? '✨' : track.genre === 'Marathi' ? '🌧️' : track.genre === 'Ghazal' ? '🎼' : '🎛️'}</div>
+      <div class="track-details">
+        <h4>${track.title}</h4>
+        <p>${track.artist} • ${track.genre}</p>
+      </div>
+      <div class="track-bpm">${track.bpm} BPM</div>
+    `;
+
+    item.addEventListener('click', () => {
+      state.selectedTrackId = track.id;
+      const currentTrack = state.library.find((entry) => entry.id === track.id) || state.library[0];
+      updateDeckText(currentTrack);
+      renderLibrary();
+      syncAudioSources();
+    });
+
+    refs.libraryList.appendChild(item);
+  });
+}
+
+function renderQueue() {
+  const upcoming = state.library.slice(0, 5);
+  refs.queueList.innerHTML = '';
+  refs.queueCount.textContent = String(upcoming.length);
+  refs.queueTotal.textContent = `${upcoming.length} Tracks`;
+
+  upcoming.forEach((track) => {
+    const item = document.createElement('div');
+    item.className = 'queue-item';
+    item.innerHTML = `
+      <div class="queue-art">${track.genre === 'Bollywood' ? '🎶' : track.genre === 'Bhangra' ? '🥁' : track.genre === 'Punjabi' ? '🎧' : track.genre === 'Tamil' ? '🌙' : track.genre === 'Telugu' ? '✨' : track.genre === 'Marathi' ? '🌧️' : track.genre === 'Ghazal' ? '🎼' : '🎛️'}</div>
+      <div>
+        <h4>${track.title}</h4>
+        <p>${track.artist}</p>
+      </div>
+      <div class="queue-time">${track.duration}</div>
+    `;
+
+    item.addEventListener('click', () => {
+      state.selectedTrackId = track.id;
+      const currentTrack = state.library.find((entry) => entry.id === track.id) || state.library[0];
+      updateDeckText(currentTrack);
+      renderLibrary();
+      syncAudioSources();
+    });
+
+    refs.queueList.appendChild(item);
+  });
+}
+
+function resumeAudio() {
+  if (!state.audioContext) return Promise.resolve();
+  if (state.audioContext.state === 'suspended') return state.audioContext.resume();
+  return Promise.resolve();
+}
+
+function ensureAudioEngine() {
+  if (!state.audioContext) {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) {
+      return null;
+    }
+
+    const ctx = new AudioCtx();
+    const masterGain = ctx.createGain();
+    masterGain.gain.value = 1;
+    masterGain.connect(ctx.destination);
+
+    state.audioContext = ctx;
+    state.engine = {
+      ctx,
+      masterGain,
+      decks: {
+        A: null,
+        B: null,
+      },
+    };
   }
 
-  .topnav {
-    display: none;
+  return state.engine;
+}
+
+function setupDeckEngine(deckKey, element) {
+  const engine = ensureAudioEngine();
+  if (!engine || !engine.ctx || !element) return;
+
+  const { ctx } = engine;
+  const map = engine.decks[deckKey];
+  if (map) return map;
+
+  const source = ctx.createMediaElementSource(element);
+  const lowFilter = ctx.createBiquadFilter();
+  const midFilter = ctx.createBiquadFilter();
+  const highFilter = ctx.createBiquadFilter();
+  const preGain = ctx.createGain();
+  const postGain = ctx.createGain();
+  const analyser = ctx.createAnalyser();
+  analyser.fftSize = 2048;
+
+  lowFilter.type = 'lowshelf';
+  midFilter.type = 'peaking';
+  highFilter.type = 'highshelf';
+
+  lowFilter.frequency.value = 180;
+  midFilter.frequency.value = 1500;
+  highFilter.frequency.value = 3500;
+
+  source.connect(lowFilter);
+  lowFilter.connect(midFilter);
+  midFilter.connect(highFilter);
+  highFilter.connect(preGain);
+  preGain.connect(postGain);
+  postGain.connect(analyser);
+  analyser.connect(engine.masterGain);
+
+  const deck = {
+    source,
+    lowFilter,
+    midFilter,
+    highFilter,
+    preGain,
+    postGain,
+    analyser,
+    gain: deckKey === 'A' ? 0.72 : 0.68,
+    low: deckKey === 'A' ? 5 : 4,
+    mid: deckKey === 'A' ? 2 : 1,
+    high: deckKey === 'A' ? 3 : 2,
+    playing: deckKey === 'A',
+    bpm: 128,
+    syncLocked: deckKey === 'A',
+  };
+
+  engine.decks[deckKey] = deck;
+  return deck;
+}
+
+function applyDeckMetadataToEngine(deckKey, deck) {
+  const engine = ensureAudioEngine();
+  if (!engine || !engine.decks[deckKey]) return;
+
+  const target = engine.decks[deckKey];
+  const gainValue = deckKey === 'A' ? Number(refs.gainA.value) / 100 : Number(refs.gainB.value) / 100;
+  target.gain = gainValue;
+  target.postGain.gain.value = gainValue;
+
+  const lowGain = deckKey === 'A' ? Number(refs.lowA.value) : Number(refs.lowB.value);
+  const midGain = deckKey === 'A' ? Number(refs.midA.value) : Number(refs.midB.value);
+  const highGain = deckKey === 'A' ? Number(refs.highA.value) : Number(refs.highB.value);
+
+  target.lowFilter.gain.value = lowGain;
+  target.midFilter.gain.value = midGain;
+  target.highFilter.gain.value = highGain;
+}
+
+function applyCrossfader(value) {
+  const left = (100 - value) / 100;
+  const right = value / 100;
+  const engine = state.engine;
+  if (!engine) return;
+
+  const deckA = engine.decks.A;
+  const deckB = engine.decks.B;
+
+  if (deckA) {
+    deckA.postGain.gain.value = left * Number(refs.gainA.value || 72) / 100;
   }
 
-  .header-actions {
-    justify-content: flex-end;
-    width: 100%;
-    flex-wrap: wrap;
-  }
-
-  .stats-row,
-  .decks-wrap,
-  .console-body,
-  .eq-row {
-    grid-template-columns: 1fr;
-    display: grid;
-  }
-
-  .console-body {
-    gap: 18px;
+  if (deckB) {
+    deckB.postGain.gain.value = right * Number(refs.gainB.value || 65) / 100;
   }
 }
+
+function syncAudioSources() {
+  const currentTrack = state.library.find((entry) => entry.id === state.selectedTrackId) || state.library[0];
+  const nextTrack = state.library.find((entry) => entry.id !== state.selectedTrackId) || state.library[1] || state.library[0];
+
+  const audioA = refs.audioA;
+  const audioB = refs.audioB;
+
+  if (currentTrack) {
+    const sourceA = currentTrack.audioUrl || currentTrack.localUrl;
+    if (sourceA && audioA.getAttribute('src') !== sourceA) {
+      audioA.src = sourceA;
+      audioA.load();
+    }
+
+    if (audioA) {
+      setupDeckEngine('A', audioA);
+      applyDeckMetadataToEngine('A');
+    }
+  }
+
+  if (nextTrack) {
+    const sourceB = nextTrack.audioUrl || nextTrack.localUrl;
+    if (sourceB && audioB.getAttribute('src') !== sourceB) {
+      audioB.src = sourceB;
+      audioB.load();
+    }
+
+    if (audioB) {
+      setupDeckEngine('B', audioB);
+      applyDeckMetadataToEngine('B');
+    }
+  }
+
+  updateDeckText(currentTrack || state.library[0]);
+  updateCrossfaderUI();
+  applyCrossfader(state.crossfaderValue);
+}
+
+function updateCrossfaderUI() {
+  document.querySelector('.deck-a').style.filter = `brightness(${1 + (100 - state.crossfaderValue) / 220})`;
+  document.querySelector('.deck-b').style.filter = `brightness(${1 + state.crossfaderValue / 220})`;
+}
+
+function handleTrackUpload(event) {
+  const files = Array.from(event.target.files || []);
+  if (!files.length) return;
+
+  files.forEach((file, index) => {
+    if (!file.type.startsWith('audio/')) return;
+
+    const objectUrl = URL.createObjectURL(file);
+    const title = file.name.replace(/\.[^.]+$/, '');
+    const genre = inferGenreFromText(title);
+    const localTrack = {
+      id: Date.now() + index,
+      title,
+      artist: 'Local Upload',
+      genre,
+      bpm: 120 + index,
+      mood: 'Custom',
+      duration: '03:00',
+      source: 'local',
+      localUrl: objectUrl,
+      audioUrl: objectUrl,
+      cuePoints: { left: 14 + index * 3, right: 58 + index * 4, playhead: 22 + index * 2 },
+    };
+
+    state.library.unshift(localTrack);
+  });
+
+  autoOrganizeLibrary();
+  state.selectedTrackId = state.library[0].id;
+  updateDeckText(state.library[0]);
+  renderLibrary();
+  renderQueue();
+  syncAudioSources();
+
+  event.target.value = '';
+}
+
+function handleInstallClick() {
+  if (!state.deferredPrompt) return;
+
+  state.deferredPrompt.prompt();
+  state.deferredPrompt.userChoice.finally(() => {
+    state.deferredPrompt = null;
+    refs.installAppBtn.hidden = true;
+  });
+}
+
+function registerServiceWorker() {
+  if (!('serviceWorker' in navigator)) return;
+
+  navigator.serviceWorker.register('./service-worker.js').catch((error) => {
+    console.warn('Service Worker registration failed:', error);
+  });
+}
+
+function setupWaveformDragHandlers() {
+  document.querySelectorAll('.waveform-shell').forEach((shell) => {
+    shell.addEventListener('pointerdown', (event) => {
+      const rect = shell.getBoundingClientRect();
+      const percent = Math.min(100, Math.max(0, ((event.clientX - rect.left) / rect.width) * 100));
+      const deckKey = shell.id.includes('A') ? 'A' : 'B';
+      const track = state.library.find((item) => item.id === state.selectedTrackId) || state.library[0];
+
+      if (!track) return;
+      if (!track.cuePoints) track.cuePoints = { left: 14, right: 62, playhead: 22 };
+      track.cuePoints.playhead = Number(percent.toFixed(1));
+      if (deckKey === 'A') {
+        refs.audioA.currentTime = (track.cuePoints.playhead / 100) * (refs.audioA.duration || 180);
+      } else {
+        refs.audioB.currentTime = (track.cuePoints.playhead / 100) * (refs.audioB.duration || 180);
+      }
+      updateWaveformMarkers(deckKey);
+    });
+  });
+
+  document.querySelectorAll('.cue-marker').forEach((marker) => {
+    marker.addEventListener('pointerdown', (event) => {
+      const target = event.currentTarget;
+      const shell = target.parentElement;
+      const deckKey = target.dataset.deck;
+      const track = state.library.find((item) => item.id === state.selectedTrackId) || state.library[0];
+      if (!track) return;
+
+      const move = (moveEvent) => {
+        const rect = shell.getBoundingClientRect();
+        const percent = Math.min(100, Math.max(0, ((moveEvent.clientX - rect.left) / rect.width) * 100));
+        if (!track.cuePoints) track.cuePoints = { left: 14, right: 62, playhead: 22 };
+        track.cuePoints[target.dataset.cue] = Number(percent.toFixed(1));
+        target.style.left = `${percent}%`;
+      };
+
+      const up = () => {
+        window.removeEventListener('pointermove', move);
+        window.removeEventListener('pointerup', up);
+      };
+
+      window.addEventListener('pointermove', move);
+      window.addEventListener('pointerup', up);
+    });
+  });
+}
+
+function bindEvents() {
+  refs.searchInput.addEventListener('input', (event) => {
+    state.query = event.target.value;
+    renderLibrary();
+  });
+
+  refs.genreButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      refs.genreButtons.forEach((item) => item.classList.remove('active'));
+      button.classList.add('active');
+      state.activeGenre = button.dataset.genre;
+      renderLibrary();
+    });
+  });
+
+  refs.crossfader.addEventListener('input', (event) => {
+    state.crossfaderValue = Number(event.target.value);
+    updateCrossfaderUI();
+    applyCrossfader(state.crossfaderValue);
+  });
+
+  refs.gainA.addEventListener('input', () => applyDeckMetadataToEngine('A'));
+  refs.gainB.addEventListener('input', () => applyDeckMetadataToEngine('B'));
+  refs.lowA.addEventListener('input', () => applyDeckMetadataToEngine('A'));
+  refs.lowB.addEventListener('input', () => applyDeckMetadataToEngine('B'));
+  refs.midA.addEventListener('input', () => applyDeckMetadataToEngine('A'));
+  refs.midB.addEventListener('input', () => applyDeckMetadataToEngine('B'));
+  refs.highA.addEventListener('input', () => applyDeckMetadataToEngine('A'));
+  refs.highB.addEventListener('input', () => applyDeckMetadataToEngine('B'));
+
+  refs.playA.addEventListener('click', async () => {
+    await resumeAudio();
+    if (refs.audioA.paused) {
+      refs.audioA.play();
+      refs.playA.textContent = 'Pause';
+    } else {
+      refs.audioA.pause();
+      refs.playA.textContent = 'Play';
+    }
+  });
+
+  refs.playB.addEventListener('click', async () => {
+    await resumeAudio();
+    if (refs.audioB.paused) {
+      refs.audioB.play();
+      refs.playB.textContent = 'Pause';
+    } else {
+      refs.audioB.pause();
+      refs.playB.textContent = 'Play';
+    }
+  });
+
+  refs.syncA.addEventListener('click', () => {
+    const selectedTrack = state.library.find((item) => item.id === state.selectedTrackId) || state.library[0];
+    if (!selectedTrack) return;
+    refs.audioA.currentTime = (selectedTrack.cuePoints?.playhead || 22) / 100 * (refs.audioA.duration || 180);
+    refs.audioA.play();
+  });
+
+  refs.syncB.addEventListener('click', () => {
+    const selectedTrack = state.library.find((item) => item.id === state.selectedTrackId) || state.library[0];
+    if (!selectedTrack) return;
+    refs.audioB.currentTime = (selectedTrack.cuePoints?.playhead || 38) / 100 * (refs.audioB.duration || 180);
+    refs.audioB.play();
+  });
+
+  refs.cueA.addEventListener('click', () => {
+    const track = state.library.find((item) => item.id === state.selectedTrackId) || state.library[0];
+    if (!track) return;
+    track.cuePoints = track.cuePoints || { left: 14, right: 62, playhead: 22 };
+    refs.audioA.currentTime = (track.cuePoints.left / 100) * (refs.audioA.duration || 180);
+    updateWaveformMarkers('A');
+  });
+
+  refs.cueB.addEventListener('click', () => {
+    const track = state.library.find((item) => item.id === state.selectedTrackId) || state.library[0];
+    if (!track) return;
+    track.cuePoints = track.cuePoints || { left: 18, right: 66, playhead: 38 };
+    refs.audioB.currentTime = (track.cuePoints.left / 100) * (refs.audioB.duration || 180);
+    updateWaveformMarkers('B');
+  });
+
+  refs.addTracksBtn.addEventListener('click', () => refs.trackUploadInput.click());
+  refs.trackUploadInput.addEventListener('change', handleTrackUpload);
+
+  window.addEventListener('online', () => {
+    state.offline = false;
+    updateConnectionStatus();
+  });
+
+  window.addEventListener('offline', () => {
+    state.offline = true;
+    updateConnectionStatus();
+  });
+
+  window.addEventListener('beforeinstallprompt', (event) => {
+    event.preventDefault();
+    state.deferredPrompt = event;
+    refs.installAppBtn.hidden = false;
+  });
+
+  refs.installAppBtn.addEventListener('click', handleInstallClick);
+
+  const animatePlaybackHeads = () => {
+    if (refs.audioA) {
+      const track = state.library.find((item) => item.id === state.selectedTrackId) || state.library[0];
+      const percent = (refs.audioA.currentTime / (refs.audioA.duration || 180)) * 100;
+      const playhead = document.querySelector('#playheadA');
+      if (playhead) {
+        playhead.style.left = `${Math.min(100, Math.max(0, percent))}%`;
+      }
+      if (track) track.cuePoints = track.cuePoints || { left: 14, right: 62, playhead: 22 };
+      track.cuePoints.playhead = Number((percent || 22).toFixed(1));
+    }
+
+    if (refs.audioB) {
+      const percent = (refs.audioB.currentTime / (refs.audioB.duration || 180)) * 100;
+      const playhead = document.querySelector('#playheadB');
+      if (playhead) {
+        playhead.style.left = `${Math.min(100, Math.max(0, percent))}%`;
+      }
+    }
+
+    requestAnimationFrame(animatePlaybackHeads);
+  };
+
+  requestAnimationFrame(animatePlaybackHeads);
+}
+
+function init() {
+  autoOrganizeLibrary();
+  updateConnectionStatus();
+  bindEvents();
+  setupWaveformDragHandlers();
+  registerServiceWorker();
+
+  buildWaveform('waveformA');
+  buildWaveform('waveformB');
+  updateWaveformMarkers('A');
+  updateWaveformMarkers('B');
+  renderLibrary();
+  renderQueue();
+  updateDeckText(state.library[0]);
+  syncAudioSources();
+  updateCrossfaderUI();
+}
+
+init();
