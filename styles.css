@@ -32,6 +32,7 @@ const state = {
   deferredPrompt: null,
   library: [...demoTracks],
   offline: !navigator.onLine,
+  bpmLockEnabled: false,
 };
 
 const refs = {
@@ -58,7 +59,22 @@ const refs = {
   playB: document.getElementById('playB'),
   syncA: document.getElementById('syncA'),
   syncB: document.getElementById('syncB'),
+  bpmLockBtn: document.getElementById('bpmLockBtn'),
+  timelineA: document.getElementById('timelineA'),
+  timelineB: document.getElementById('timelineB'),
+  gainA: document.getElementById('gainA'),
+  gainB: document.getElementById('gainB'),
+  pitchA: document.getElementById('pitchA'),
+  pitchB: document.getElementById('pitchB'),
+  eqLowA: document.getElementById('eqLowA'),
+  eqLowB: document.getElementById('eqLowB'),
+  eqMidA: document.getElementById('eqMidA'),
+  eqMidB: document.getElementById('eqMidB'),
+  eqHighA: document.getElementById('eqHighA'),
+  eqHighB: document.getElementById('eqHighB'),
 };
+
+const audioEngine = {};
 
 function getVisibleTracks() {
   const searchValue = state.query.trim().toLowerCase();
@@ -98,12 +114,12 @@ function renderWaveformMarkers(deckKey) {
   const markers = waveformShell.querySelectorAll('.cue-marker');
   markers.forEach((marker) => {
     const cueRole = marker.dataset.cue;
-    const cuePos = track.cuePoints && track.cuePoints[cueRole] ? track.cuePoints[cueRole] : cueRole === 'left' ? 18 : 66;
-    marker.style.left = `${cuePos}%`;
+    const cuePosition = track.cuePoints && track.cuePoints[cueRole] !== undefined ? track.cuePoints[cueRole] : cueRole === 'left' ? 18 : 66;
+    marker.style.left = `${cuePosition}%`;
   });
 
   const playhead = waveformShell.querySelector('.playhead');
-  if (playhead && track.cuePoints && track.cuePoints.playhead) {
+  if (playhead && track.cuePoints && track.cuePoints.playhead !== undefined) {
     playhead.style.left = `${track.cuePoints.playhead}%`;
   }
 }
@@ -122,6 +138,9 @@ function updateDecks(track) {
   const artB = document.querySelector('.artwork-b');
   artA.style.background = genreColors[track.genre] || genreColors.Fusion;
   artB.style.background = genreColors[nextTrack.genre] || genreColors.Fusion;
+
+  document.getElementById('durationA').textContent = track.duration;
+  document.getElementById('durationB').textContent = nextTrack.duration;
 
   buildWaveform('waveformA');
   buildWaveform('waveformB');
@@ -194,6 +213,80 @@ function renderQueue() {
   });
 }
 
+function ensureDeckAudio(deckKey) {
+  const audio = refs[`audio${deckKey}`];
+  if (!audio) return null;
+  if (audioEngine[deckKey]) return audioEngine[deckKey];
+
+  const AudioCtx = window.AudioContext || window.webkitAudioContext;
+  const ctx = new AudioCtx();
+  const source = ctx.createMediaElementSource(audio);
+  const lowShelf = ctx.createBiquadFilter();
+  lowShelf.type = 'lowshelf';
+  lowShelf.frequency.value = 180;
+  lowShelf.gain.value = 0;
+
+  const midPeak = ctx.createBiquadFilter();
+  midPeak.type = 'peaking';
+  midPeak.frequency.value = 1200;
+  midPeak.Q.value = 1;
+  midPeak.gain.value = 0;
+
+  const highShelf = ctx.createBiquadFilter();
+  highShelf.type = 'highshelf';
+  highShelf.frequency.value = 4200;
+  highShelf.gain.value = 0;
+
+  const gainNode = ctx.createGain();
+  const output = ctx.createGain();
+
+  source.connect(lowShelf);
+  lowShelf.connect(midPeak);
+  midPeak.connect(highShelf);
+  highShelf.connect(gainNode);
+  gainNode.connect(output);
+  output.connect(ctx.destination);
+
+  audioEngine[deckKey] = { ctx, source, lowShelf, midPeak, highShelf, gainNode, output };
+  return audioEngine[deckKey];
+}
+
+function updateDeckEq(deckKey, band, dbValue) {
+  const engine = ensureDeckAudio(deckKey);
+  if (!engine) return;
+
+  const bandMap = {
+    low: engine.lowShelf,
+    mid: engine.midPeak,
+    high: engine.highShelf,
+  };
+
+  if (bandMap[band]) {
+    bandMap[band].gain.value = Number(dbValue);
+  }
+}
+
+function updateDeckGain(deckKey, value) {
+  const engine = ensureDeckAudio(deckKey);
+  if (!engine) return;
+  engine.gainNode.gain.value = Number(value) / 100;
+}
+
+function updateDeckPitch(deckKey, percent) {
+  const audio = refs[`audio${deckKey}`];
+  if (!audio) return;
+
+  const raw = Number(percent) / 100;
+  audio.playbackRate = raw;
+
+  const currentTrack = state.library.find((track) => track.id === state.selectedTrackId) || state.library[0];
+  if (currentTrack && state.bpmLockEnabled) {
+    const targetBpm = currentTrack.bpm || 120;
+    const lockedRate = targetBpm / 128;
+    audio.playbackRate = lockedRate;
+  }
+}
+
 function syncAudioSources() {
   const currentTrack = state.library.find((entry) => entry.id === state.selectedTrackId) || state.library[0];
   const nextTrack = state.library.find((entry) => entry.id !== state.selectedTrackId) || state.library[1] || state.library[0];
@@ -207,6 +300,7 @@ function syncAudioSources() {
       audioA.src = source;
       audioA.load();
     }
+    audioA.volume = 1;
     if (state.deckAPlaying) {
       audioA.play().catch(() => {});
     } else {
@@ -220,12 +314,54 @@ function syncAudioSources() {
       audioB.src = source;
       audioB.load();
     }
+    audioB.volume = 1;
     if (state.deckBPlaying) {
       audioB.play().catch(() => {});
     } else {
       audioB.pause();
     }
   }
+}
+
+function setTimelineFromAudio(deckKey) {
+  const audio = refs[`audio${deckKey}`];
+  const timeline = refs[`timeline${deckKey}`];
+  if (!audio || !timeline) return;
+  if (!Number.isFinite(audio.duration) || audio.duration <= 0) return;
+  const percent = (audio.currentTime / audio.duration) * 100;
+  timeline.value = Math.min(100, Math.max(0, percent));
+  const playhead = document.getElementById(`playhead${deckKey}`);
+  if (playhead) {
+    playhead.style.left = `${percent}%`;
+  }
+}
+
+function seekDeck(deckKey, percent) {
+  const audio = refs[`audio${deckKey}`];
+  if (!audio) return;
+  if (!Number.isFinite(audio.duration) || audio.duration <= 0) return;
+  const targetValue = Math.min(100, Math.max(0, percent));
+  audio.currentTime = (targetValue / 100) * audio.duration;
+  setTimelineFromAudio(deckKey);
+}
+
+function updateDeckVisualization() {
+  const deckKeys = ['A', 'B'];
+  deckKeys.forEach((deckKey) => {
+    const audio = refs[`audio${deckKey}`];
+    const shell = document.getElementById(`waveformShell${deckKey}`);
+    if (!audio || !shell) return;
+
+    const bars = shell.querySelectorAll('.waveform-bars span');
+    const gainFactor = audio.volume ?? 1;
+    bars.forEach((bar, index) => {
+      const randomAmp = 0.35 + ((index % 5) * 0.12) + (gainFactor * 0.4) + (Math.random() * 0.5);
+      bar.style.transform = `scaleY(${randomAmp})`;
+      bar.style.opacity = `${0.5 + gainFactor * 0.5}`;
+    });
+  });
+
+  requestAnimationFrame(updateDeckVisualization);
 }
 
 function handleTrackUpload(event) {
@@ -286,6 +422,7 @@ function attachCueDragHandlers() {
     marker.addEventListener('pointerdown', (event) => {
       const markerEl = event.currentTarget;
       const shell = markerEl.parentElement;
+      const deckKey = markerEl.dataset.deck;
       let dragging = true;
 
       const onMove = (moveEvent) => {
@@ -297,12 +434,10 @@ function attachCueDragHandlers() {
         const track = state.library.find((item) => item.id === state.selectedTrackId) || state.library[0];
         if (!track.cuePoints) track.cuePoints = {};
         track.cuePoints[markerEl.dataset.cue] = Number(percent.toFixed(1));
-
-        if (markerEl.dataset.cue === 'left' || markerEl.dataset.cue === 'right') {
-          const left = track.cuePoints.left || 18;
-          const right = track.cuePoints.right || 66;
-          const playhead = track.cuePoints.playhead || 30;
-          track.cuePoints = { left, right, playhead };
+        if (deckKey === 'A') {
+          renderWaveformMarkers('A');
+        } else {
+          renderWaveformMarkers('B');
         }
       };
 
@@ -314,6 +449,15 @@ function attachCueDragHandlers() {
 
       window.addEventListener('pointermove', onMove);
       window.addEventListener('pointerup', onUp);
+    });
+  });
+
+  document.querySelectorAll('.waveform-shell').forEach((shell) => {
+    shell.addEventListener('pointerdown', (event) => {
+      const rect = shell.getBoundingClientRect();
+      const percent = ((event.clientX - rect.left) / rect.width) * 100;
+      const deckKey = shell.id.includes('A') ? 'A' : 'B';
+      seekDeck(deckKey, percent);
     });
   });
 }
@@ -368,6 +512,7 @@ function bindEvents() {
       activeTrack.cuePoints.playhead = 22;
       renderWaveformMarkers('A');
     }
+    refs.audioA.playbackRate = 1;
   });
 
   refs.syncB.addEventListener('click', () => {
@@ -376,6 +521,53 @@ function bindEvents() {
       activeTrack.cuePoints.playhead = 38;
       renderWaveformMarkers('B');
     }
+    refs.audioB.playbackRate = 1;
+  });
+
+  refs.bpmLockBtn.addEventListener('click', () => {
+    state.bpmLockEnabled = !state.bpmLockEnabled;
+    refs.bpmLockBtn.classList.toggle('active', state.bpmLockEnabled);
+    refs.bpmLockBtn.textContent = state.bpmLockEnabled ? 'BPM Locked' : 'BPM Lock';
+
+    if (state.bpmLockEnabled) {
+      const selected = state.library.find((track) => track.id === state.selectedTrackId) || state.library[0];
+      const targetBpm = selected.bpm || 128;
+      refs.audioA.playbackRate = targetBpm / 128;
+      refs.audioB.playbackRate = targetBpm / 132;
+    }
+  });
+
+  refs.gainA.addEventListener('input', (event) => {
+    const value = Number(event.target.value);
+    updateDeckGain('A', value);
+  });
+
+  refs.gainB.addEventListener('input', (event) => {
+    const value = Number(event.target.value);
+    updateDeckGain('B', value);
+  });
+
+  refs.pitchA.addEventListener('input', (event) => {
+    updateDeckPitch('A', event.target.value);
+  });
+
+  refs.pitchB.addEventListener('input', (event) => {
+    updateDeckPitch('B', event.target.value);
+  });
+
+  refs.eqLowA.addEventListener('input', (event) => updateDeckEq('A', 'low', event.target.value));
+  refs.eqMidA.addEventListener('input', (event) => updateDeckEq('A', 'mid', event.target.value));
+  refs.eqHighA.addEventListener('input', (event) => updateDeckEq('A', 'high', event.target.value));
+  refs.eqLowB.addEventListener('input', (event) => updateDeckEq('B', 'low', event.target.value));
+  refs.eqMidB.addEventListener('input', (event) => updateDeckEq('B', 'mid', event.target.value));
+  refs.eqHighB.addEventListener('input', (event) => updateDeckEq('B', 'high', event.target.value));
+
+  refs.timelineA.addEventListener('input', (event) => {
+    seekDeck('A', Number(event.target.value));
+  });
+
+  refs.timelineB.addEventListener('input', (event) => {
+    seekDeck('B', Number(event.target.value));
   });
 
   refs.addTracksBtn.addEventListener('click', () => refs.trackUploadInput.click());
@@ -398,6 +590,13 @@ function bindEvents() {
   });
 
   refs.installAppBtn.addEventListener('click', handleInstallClick);
+
+  ['A', 'B'].forEach((deckKey) => {
+    const audio = refs[`audio${deckKey}`];
+    if (!audio) return;
+    audio.addEventListener('timeupdate', () => setTimelineFromAudio(deckKey));
+    audio.addEventListener('loadedmetadata', () => setTimelineFromAudio(deckKey));
+  });
 }
 
 function init() {
@@ -413,6 +612,15 @@ function init() {
   renderQueue();
   updateDecks(state.library[0]);
   syncAudioSources();
+  updateDeckGain('A', refs.gainA.value);
+  updateDeckGain('B', refs.gainB.value);
+  updateDeckEq('A', 'low', refs.eqLowA.value);
+  updateDeckEq('A', 'mid', refs.eqMidA.value);
+  updateDeckEq('A', 'high', refs.eqHighA.value);
+  updateDeckEq('B', 'low', refs.eqLowB.value);
+  updateDeckEq('B', 'mid', refs.eqMidB.value);
+  updateDeckEq('B', 'high', refs.eqHighB.value);
+  requestAnimationFrame(updateDeckVisualization);
 }
 
 init();
