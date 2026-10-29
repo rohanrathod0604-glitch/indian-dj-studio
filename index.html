@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rythm Raj DJ Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand-wrap">
+          <div class="brand-mark">RR</div>
+          <div>
+            <p class="eyebrow">Indian DJ Suite</p>
+            <h1>Rythm Raj Studio</h1>
+          </div>
+        </div>
+
+        <nav class="topnav">
+          <a href="#">Library</a>
+          <a href="#">Decks</a>
+          <a href="#">Mix</a>
+          <a href="#">Live Set</a>
+        </nav>
+
+        <button class="primary-btn">Live Mix</button>
+      </header>
+
+      <main class="dashboard">
+        <aside class="sidebar panel">
+          <div class="panel-header">
+            <h2>Track Library</h2>
+            <span class="badge">180</span>
+          </div>
+
+          <div class="search-box">
+            <span>⌕</span>
+            <input id="searchInput" type="text" placeholder="Search tracks, artists..." />
+          </div>
+
+          <div class="genre-filter">
+            <button class="genre-chip active" data-genre="all">All</button>
+            <button class="genre-chip" data-genre="Bollywood">Bollywood</button>
+            <button class="genre-chip" data-genre="Bhangra">Bhangra</button>
+            <button class="genre-chip" data-genre="Punjabi">Punjabi</button>
+            <button class="genre-chip" data-genre="Tamil">Tamil</button>
+            <button class="genre-chip" data-genre="Telugu">Telugu</button>
+            <button class="genre-chip" data-genre="Marathi">Marathi</button>
+            <button class="genre-chip" data-genre="Ghazal">Ghazal</button>
+            <button class="genre-chip" data-genre="Fusion">Fusion</button>
+          </div>
+
+          <div id="libraryList" class="library-list"></div>
+        </aside>
+
+        <section class="main-stage">
+          <div class="stats-row">
+            <div class="stat-card">
+              <span>Live Set</span>
+              <strong>Nightwave India</strong>
+            </div>
+            <div class="stat-card">
+              <span>Tempo</span>
+              <strong>128 BPM</strong>
+            </div>
+            <div class="stat-card">
+              <span>Genres</span>
+              <strong>8 Active</strong>
+            </div>
+            <div class="stat-card">
+              <span>Queue</span>
+              <strong>14 Tracks</strong>
+            </div>
+          </div>
+
+          <div class="decks-wrap">
+            <article class="deck panel deck-a" data-deck="A">
+              <div class="deck-topline">
+                <div>
+                  <p class="label">Deck A</p>
+                  <h3 id="deckATitle">BollyBeat Rush</h3>
+                </div>
+                <div class="status-bubble online">LIVE</div>
+              </div>
+
+              <div class="artwork artwork-a">
+                <span class="art-emoji">🎵</span>
+              </div>
+
+              <div class="track-meta">
+                <div>
+                  <p>Artist</p>
+                  <strong id="deckAArtist">Aarav Shah</strong>
+                </div>
+                <div>
+                  <p>Genre</p>
+                  <strong id="deckAGenre">Bollywood</strong>
+                </div>
+              </div>
+
+              <div id="waveformA" class="waveform"></div>
+
+              <div class="transport-row">
+                <button class="mini-btn">Cue</button>
+                <button class="mini-btn" id="playA">Play</button>
+                <button class="mini-btn" id="syncA">Sync</button>
+              </div>
+
+              <div class="meters">
+                <div class="meter-box">
+                  <span>Gain</span>
+                  <input type="range" min="0" max="100" value="72" />
+                </div>
+                <div class="meter-box">
+                  <span>Tempo</span>
+                  <input type="range" min="0" max="100" value="56" />
+                </div>
+              </div>
+            </article>
+
+            <article class="deck panel deck-b" data-deck="B">
+              <div class="deck-topline">
+                <div>
+                  <p class="label">Deck B</p>
+                  <h3 id="deckBTitle">Punjab Sunset</h3>
+                </div>
+                <div class="status-bubble">READY</div>
+              </div>
+
+              <div class="artwork artwork-b">
+                <span class="art-emoji">🎧</span>
+              </div>
+
+              <div class="track-meta">
+                <div>
+                  <p>Artist</p>
+                  <strong id="deckBArtist">Jass Singh</strong>
+                </div>
+                <div>
+                  <p>Genre</p>
+                  <strong id="deckBGenre">Bhangra</strong>
+                </div>
+              </div>
+
+              <div id="waveformB" class="waveform"></div>
+
+              <div class="transport-row">
+                <button class="mini-btn">Cue</button>
+                <button class="mini-btn" id="playB">Play</button>
+                <button class="mini-btn" id="syncB">Sync</button>
+              </div>
+
+              <div class="meters">
+                <div class="meter-box">
+                  <span>Gain</span>
+                  <input type="range" min="0" max="100" value="65" />
+                </div>
+                <div class="meter-box">
+                  <span>Tempo</span>
+                  <input type="range" min="0" max="100" value="48" />
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="mix-console panel">
+            <div class="console-header">
+              <h2>Mix Console</h2>
+              <span>Sync lock on</span>
+            </div>
+
+            <div class="console-body">
+              <div class="eq-panel">
+                <div class="eq-knob">
+                  <span>LOW</span>
+                  <div class="knob"></div>
+                </div>
+                <div class="eq-knob">
+                  <span>MID</span>
+                  <div class="knob"></div>
+                </div>
+                <div class="eq-knob">
+                  <span>HIGH</span>
+                  <div class="knob"></div>
+                </div>
+              </div>
+
+              <div class="crossfader-wrap">
+                <span>A</span>
+                <input id="crossfader" type="range" min="0" max="100" value="52" />
+                <span>B</span>
+              </div>
+
+              <div class="mix-actions">
+                <button class="action-btn">Auto DJ</button>
+                <button class="action-btn secondary">Loop</button>
+                <button class="action-btn accent">Record Mix</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <aside class="queue panel">
+          <div class="panel-header">
+            <h2>Next Up</h2>
+            <span class="badge accent">5</span>
+          </div>
+
+          <div id="queueList" class="queue-list"></div>
+        </aside>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
