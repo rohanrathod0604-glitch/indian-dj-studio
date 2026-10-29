@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#07131b" />
     <meta
       name="description"
-      content="Rythm Raj Studio is an Indian DJ mixer app with online/offline support, installable app mode and local music library."
+      content="Rythm Raj Studio is an Indian DJ mixer app with online/offline support, installable app mode, waveform editor, cue points, and a real music library."
     />
     <title>Rythm Raj DJ Studio</title>
     <link rel="manifest" href="./manifest.webmanifest" />
@@ -115,11 +115,26 @@
                 </div>
               </div>
 
-              <div id="waveformA" class="waveform"></div>
+              <div class="waveform-card">
+                <div class="waveform-header">
+                  <span>Waveform Editor</span>
+                  <span class="mini-tag">A</span>
+                </div>
+                <div class="waveform-shell" id="waveformShellA">
+                  <div class="waveform-bars" id="waveformA"></div>
+                  <div class="playhead" id="playheadA" style="left: 22%"></div>
+                  <div class="cue-marker cue-a" data-deck="A" data-cue="left" style="left: 14%">
+                    <span>C1</span>
+                  </div>
+                  <div class="cue-marker cue-b" data-deck="A" data-cue="right" style="left: 62%">
+                    <span>C2</span>
+                  </div>
+                </div>
+              </div>
 
               <div class="transport-row">
                 <button class="mini-btn">Cue</button>
-                <button class="mini-btn" id="playA">Play</button>
+                <button class="mini-btn" id="playA">Pause</button>
                 <button class="mini-btn" id="syncA">Sync</button>
               </div>
 
@@ -159,7 +174,22 @@
                 </div>
               </div>
 
-              <div id="waveformB" class="waveform"></div>
+              <div class="waveform-card">
+                <div class="waveform-header">
+                  <span>Waveform Editor</span>
+                  <span class="mini-tag">B</span>
+                </div>
+                <div class="waveform-shell" id="waveformShellB">
+                  <div class="waveform-bars" id="waveformB"></div>
+                  <div class="playhead" id="playheadB" style="left: 38%"></div>
+                  <div class="cue-marker cue-a" data-deck="B" data-cue="left" style="left: 18%">
+                    <span>C1</span>
+                  </div>
+                  <div class="cue-marker cue-b" data-deck="B" data-cue="right" style="left: 66%">
+                    <span>C2</span>
+                  </div>
+                </div>
+              </div>
 
               <div class="transport-row">
                 <button class="mini-btn">Cue</button>

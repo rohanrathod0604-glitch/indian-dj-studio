@@ -1,14 +1,14 @@
 const demoTracks = [
-  { id: 1, title: 'BollyBeat Rush', artist: 'Aarav Shah', genre: 'Bollywood', bpm: 128, mood: 'High Energy', duration: '03:28', source: 'remote', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3' },
-  { id: 2, title: 'Punjab Sunset', artist: 'Jass Singh', genre: 'Bhangra', bpm: 132, mood: 'Festive', duration: '03:44', source: 'remote', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3' },
-  { id: 3, title: 'Silver Dhols', artist: 'Riya Kaur', genre: 'Punjabi', bpm: 126, mood: 'Glow', duration: '04:09', source: 'remote', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3' },
-  { id: 4, title: 'Temple Pulse', artist: 'Mithran V', genre: 'Tamil', bpm: 118, mood: 'Groove', duration: '03:52', source: 'remote', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3' },
-  { id: 5, title: 'Saffron Dreams', artist: 'Nisha Rao', genre: 'Telugu', bpm: 121, mood: 'Warm', duration: '04:16', source: 'remote', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3' },
-  { id: 6, title: 'Rain in Pune', artist: 'Aditya Kale', genre: 'Marathi', bpm: 110, mood: 'Smooth', duration: '03:42', source: 'remote', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3' },
-  { id: 7, title: 'Midnight Ghazal', artist: 'Sameera Ali', genre: 'Ghazal', bpm: 92, mood: 'Dreamy', duration: '05:01', source: 'remote', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3' },
-  { id: 8, title: 'Jazzantra Mix', artist: 'The Fusion Club', genre: 'Fusion', bpm: 124, mood: 'Club', duration: '04:08', source: 'remote', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3' },
-  { id: 9, title: 'Diwali Lights', artist: 'Roshaan', genre: 'Bollywood', bpm: 130, mood: 'Epic', duration: '03:58', source: 'remote', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3' },
-  { id: 10, title: 'Balle Balle Echo', artist: 'Harnoor', genre: 'Punjabi', bpm: 134, mood: 'Crowd', duration: '03:31', source: 'remote', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3' }
+  { id: 1, title: 'BollyBeat Rush', artist: 'Aarav Shah', genre: 'Bollywood', bpm: 128, mood: 'High Energy', duration: '03:28', source: 'remote', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', cuePoints: { left: 14, right: 62, playhead: 22 } },
+  { id: 2, title: 'Punjab Sunset', artist: 'Jass Singh', genre: 'Bhangra', bpm: 132, mood: 'Festive', duration: '03:44', source: 'remote', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3', cuePoints: { left: 18, right: 66, playhead: 38 } },
+  { id: 3, title: 'Silver Dhols', artist: 'Riya Kaur', genre: 'Punjabi', bpm: 126, mood: 'Glow', duration: '04:09', source: 'remote', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3', cuePoints: { left: 24, right: 58, playhead: 26 } },
+  { id: 4, title: 'Temple Pulse', artist: 'Mithran V', genre: 'Tamil', bpm: 118, mood: 'Groove', duration: '03:52', source: 'remote', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3', cuePoints: { left: 16, right: 70, playhead: 30 } },
+  { id: 5, title: 'Saffron Dreams', artist: 'Nisha Rao', genre: 'Telugu', bpm: 121, mood: 'Warm', duration: '04:16', source: 'remote', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3', cuePoints: { left: 20, right: 64, playhead: 35 } },
+  { id: 6, title: 'Rain in Pune', artist: 'Aditya Kale', genre: 'Marathi', bpm: 110, mood: 'Smooth', duration: '03:42', source: 'remote', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3', cuePoints: { left: 12, right: 60, playhead: 28 } },
+  { id: 7, title: 'Midnight Ghazal', artist: 'Sameera Ali', genre: 'Ghazal', bpm: 92, mood: 'Dreamy', duration: '05:01', source: 'remote', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3', cuePoints: { left: 30, right: 72, playhead: 42 } },
+  { id: 8, title: 'Jazzantra Mix', artist: 'The Fusion Club', genre: 'Fusion', bpm: 124, mood: 'Club', duration: '04:08', source: 'remote', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3', cuePoints: { left: 21, right: 68, playhead: 31 } },
+  { id: 9, title: 'Diwali Lights', artist: 'Roshaan', genre: 'Bollywood', bpm: 130, mood: 'Epic', duration: '03:58', source: 'remote', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3', cuePoints: { left: 15, right: 64, playhead: 23 } },
+  { id: 10, title: 'Balle Balle Echo', artist: 'Harnoor', genre: 'Punjabi', bpm: 134, mood: 'Crowd', duration: '03:31', source: 'remote', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3', cuePoints: { left: 28, right: 70, playhead: 44 } }
 ];
 
 const genreColors = {
@@ -80,12 +80,31 @@ function buildWaveform(targetId) {
   if (!container) return;
 
   container.innerHTML = '';
-  for (let i = 0; i < 30; i += 1) {
+
+  for (let i = 0; i < 48; i += 1) {
     const bar = document.createElement('span');
-    const height = 18 + Math.random() * 48;
+    const height = 12 + Math.random() * 56;
     bar.style.height = `${height}px`;
-    bar.style.animationDelay = `${i * 0.08}s`;
+    bar.style.animationDelay = `${i * 0.05}s`;
     container.appendChild(bar);
+  }
+}
+
+function renderWaveformMarkers(deckKey) {
+  const track = state.library.find((item) => item.id === state.selectedTrackId) || state.library[0];
+  const waveformShell = document.getElementById(`waveformShell${deckKey}`);
+  if (!waveformShell || !track) return;
+
+  const markers = waveformShell.querySelectorAll('.cue-marker');
+  markers.forEach((marker) => {
+    const cueRole = marker.dataset.cue;
+    const cuePos = track.cuePoints && track.cuePoints[cueRole] ? track.cuePoints[cueRole] : cueRole === 'left' ? 18 : 66;
+    marker.style.left = `${cuePos}%`;
+  });
+
+  const playhead = waveformShell.querySelector('.playhead');
+  if (playhead && track.cuePoints && track.cuePoints.playhead) {
+    playhead.style.left = `${track.cuePoints.playhead}%`;
   }
 }
 
@@ -106,6 +125,8 @@ function updateDecks(track) {
 
   buildWaveform('waveformA');
   buildWaveform('waveformB');
+  renderWaveformMarkers('A');
+  renderWaveformMarkers('B');
 }
 
 function renderLibrary() {
@@ -227,6 +248,7 @@ function handleTrackUpload(event) {
       source: 'local',
       localUrl: objectUrl,
       audioUrl: objectUrl,
+      cuePoints: { left: 14 + index * 3, right: 58 + index * 4, playhead: 22 + index * 2 },
     };
 
     state.library.unshift(localTrack);
@@ -256,6 +278,43 @@ function registerServiceWorker() {
 
   navigator.serviceWorker.register('./service-worker.js').catch((error) => {
     console.warn('Service Worker registration failed:', error);
+  });
+}
+
+function attachCueDragHandlers() {
+  document.querySelectorAll('.cue-marker').forEach((marker) => {
+    marker.addEventListener('pointerdown', (event) => {
+      const markerEl = event.currentTarget;
+      const shell = markerEl.parentElement;
+      let dragging = true;
+
+      const onMove = (moveEvent) => {
+        if (!dragging) return;
+        const rect = shell.getBoundingClientRect();
+        const percent = Math.min(100, Math.max(0, ((moveEvent.clientX - rect.left) / rect.width) * 100));
+        markerEl.style.left = `${percent}%`;
+
+        const track = state.library.find((item) => item.id === state.selectedTrackId) || state.library[0];
+        if (!track.cuePoints) track.cuePoints = {};
+        track.cuePoints[markerEl.dataset.cue] = Number(percent.toFixed(1));
+
+        if (markerEl.dataset.cue === 'left' || markerEl.dataset.cue === 'right') {
+          const left = track.cuePoints.left || 18;
+          const right = track.cuePoints.right || 66;
+          const playhead = track.cuePoints.playhead || 30;
+          track.cuePoints = { left, right, playhead };
+        }
+      };
+
+      const onUp = () => {
+        dragging = false;
+        window.removeEventListener('pointermove', onMove);
+        window.removeEventListener('pointerup', onUp);
+      };
+
+      window.addEventListener('pointermove', onMove);
+      window.addEventListener('pointerup', onUp);
+    });
   });
 }
 
@@ -304,13 +363,19 @@ function bindEvents() {
   });
 
   refs.syncA.addEventListener('click', () => {
-    refs.deckATitle.textContent = 'BollyBeat Rush';
-    refs.deckBTitle.textContent = 'Punjab Sunset';
+    const activeTrack = state.library.find((item) => item.id === state.selectedTrackId) || state.library[0];
+    if (activeTrack && activeTrack.cuePoints) {
+      activeTrack.cuePoints.playhead = 22;
+      renderWaveformMarkers('A');
+    }
   });
 
   refs.syncB.addEventListener('click', () => {
-    refs.deckATitle.textContent = 'BollyBeat Rush';
-    refs.deckBTitle.textContent = 'Punjab Sunset';
+    const activeTrack = state.library.find((item) => item.id === state.selectedTrackId) || state.library[0];
+    if (activeTrack && activeTrack.cuePoints) {
+      activeTrack.cuePoints.playhead = 38;
+      renderWaveformMarkers('B');
+    }
   });
 
   refs.addTracksBtn.addEventListener('click', () => refs.trackUploadInput.click());
@@ -338,9 +403,12 @@ function bindEvents() {
 function init() {
   updateConnectionStatus();
   bindEvents();
+  attachCueDragHandlers();
   registerServiceWorker();
   buildWaveform('waveformA');
   buildWaveform('waveformB');
+  renderWaveformMarkers('A');
+  renderWaveformMarkers('B');
   renderLibrary();
   renderQueue();
   updateDecks(state.library[0]);

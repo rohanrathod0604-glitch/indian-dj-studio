@@ -1,52 +1,48 @@
 # Rythm Raj Studio
 
-Rythm Raj Studio is a free DJ/music app inspired by QuickieMusic, Lexicon DJ, and DJ.Studio, using Indian genres and a modern dashboard.
+Rythm Raj Studio is a free DJ/music dashboard inspired by QuickieMusic, Lexicon DJ, and DJ.Studio, built for live deck experiences with Indian music genres.
 
-## What is included
+## Features
 
-- Online + offline-ready web app
-- Installable app mode using a PWA manifest
-- Local music library upload support
-- Demo DJ deck layout with dual-deck controls
-- Genre filters for Bollywood, Bhangra, Punjabi, Tamil, Telugu, Marathi, Ghazal, and Fusion
-- Public demo audio fallback for immediate testing
-
-## Installable app mode
-
-This project supports install prompts in supported browsers. You can install it like an app on desktop or mobile, and it will continue working offline after the first load.
-
-## Real DJ music library mode
-
-The app allows users to upload their own MP3 tracks through the browser. Uploaded tracks are added to the DJ library and can be played locally without a backend.
+- Online + offline-ready PWA layout
+- installable app mode for supported browsers
+- local track upload support for a real music library
+- dual-deck DJ dashboard
+- waveform editor with drag-to-move cue points
+- realistic dark dashboard styling inspired by modern DJ software
 
 ## Run locally
 
-Open the project in a browser, or run a local server:
+Open the folder in a browser, or run a local server:
 
 ```bash
 python -m http.server 8000
 ```
 
-Then visit:
+Then open:
 
 ```text
 http://localhost:8000
 ```
 
+## Local music library
+
+Use the Add Tracks button to load your own MP3 files. They are added to the library instantly and can be played locally without a backend.
+
 ## Offline support
 
-The app registers a service worker so the UI and audio cache can load offline after the first visit. Since browser security limits automatic audio download for local files, the app also supports adding your own tracks from disk for a real local DJ library.
+The app includes a service worker for caching the shell files so the UI remains available offline after the first visit.
 
-## Notes
+## Design direction
 
-- This version is free to use for personal and learning projects.
-- Replace demo tracks with your own licensed audio if you plan to distribute or publish the app commercially.
-- For best offline performance, add your own MP3 files into the app via the Add Tracks button.
+This layout pushes closer to the premium DJ dashboard look of the references you listed:
 
-## Design inspiration
+- QuickieMusic: quick-access library and music browsing
+- Lexicon DJ: clean catalog and metadata feel
+- DJ.Studio: polished deck and mixer styling
 
-- QuickieMusic: fast track library feel
-- Lexicon DJ: catalog-driven organization
-- DJ.Studio: polished live mix presentation
+This version adds waveform editing and drag cue markers, making it much closer to a real DJ software dashboard.
 
-This repo now supports the online + offline, installable app, and local DJ library workflow you requested.
+## Legal note
+
+For personal use, the included demo audio is fine. For commercial distribution, use your own licensed audio files.
