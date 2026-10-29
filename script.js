@@ -45,11 +45,17 @@ self.addEventListener('fetch', (event) => {
 
       return fetch(event.request)
         .then((response) => {
-          if (!response || response.status !== 200) return response;
+          if (!response || response.status !== 200) {
+            return response;
+          }
 
           const responseClone = response.clone();
           const cacheName = isRemoteAudio ? AUDIO_CACHE : APP_CACHE;
-          caches.open(cacheName).then((cache) => cache.put(event.request, responseClone));
+
+          caches.open(cacheName).then((cache) => {
+            cache.put(event.request, responseClone);
+          });
+
           return response;
         })
         .catch(() => caches.match('./index.html'));

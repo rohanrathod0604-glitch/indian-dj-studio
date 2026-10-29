@@ -369,7 +369,35 @@ h1 {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
+}
+
+.deck-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: rgba(49, 209, 255, 0.1);
+  color: var(--text);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.chip.danger {
+  background: rgba(255, 95, 162, 0.12);
+  color: #ff9bc8;
 }
 
 .label {
@@ -487,7 +515,7 @@ h1 {
   overflow: hidden;
   background: linear-gradient(180deg, rgba(9, 22, 31, 0.85), rgba(15, 35, 45, 0.75));
   border: 1px solid rgba(255,255,255,0.06);
-  cursor: pointer;
+  user-select: none;
 }
 
 .waveform-bars {
@@ -510,6 +538,20 @@ h1 {
 
 .waveform-bars span:nth-child(odd) {
   background: linear-gradient(180deg, #ffd166 0%, #ff5fa2 100%);
+}
+
+.beat-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.beat-grid span {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.18);
 }
 
 .playhead {
@@ -561,21 +603,6 @@ h1 {
   background: rgba(49,209,255,0.12);
 }
 
-.timeline-wrap {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: 8px;
-  margin-top: 10px;
-  color: var(--muted);
-  font-size: 0.72rem;
-}
-
-.timeline-wrap input {
-  width: 100%;
-  accent-color: var(--primary);
-}
-
 @keyframes pulse {
   0% { transform: scaleY(0.45); opacity: 0.8; }
   100% { transform: scaleY(1); opacity: 1; }
@@ -585,6 +612,7 @@ h1 {
   display: flex;
   gap: 10px;
   margin-top: 16px;
+  flex-wrap: wrap;
 }
 
 .mini-btn,
@@ -596,10 +624,39 @@ h1 {
   font-weight: 700;
 }
 
+.mini-btn.accent,
+.action-btn.accent {
+  background: linear-gradient(135deg, rgba(49, 209, 255, 0.18), rgba(157, 126, 245, 0.18));
+}
+
 .mini-btn:hover,
 .action-btn:hover,
 .secondary-btn:hover {
   border-color: rgba(49, 209, 255, 0.28);
+}
+
+.eq-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.eq-control {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+
+.eq-control label {
+  font-size: 0.7rem;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .meters {
@@ -628,29 +685,6 @@ h1 {
 input[type='range'] {
   width: 100%;
   accent-color: var(--primary);
-}
-
-.eq-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-  margin-top: 18px;
-}
-
-.eq-block {
-  padding: 10px 12px;
-  border: 1px solid rgba(255,255,255,0.04);
-  border-radius: 12px;
-  background: rgba(255,255,255,0.02);
-}
-
-.eq-block label {
-  display: block;
-  color: var(--muted);
-  font-size: 0.68rem;
-  margin-bottom: 8px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
 }
 
 .mix-console {
@@ -737,16 +771,6 @@ input[type='range'] {
   background: rgba(157, 126, 245, 0.12);
 }
 
-.action-btn.accent {
-  background: linear-gradient(135deg, rgba(255, 95, 162, 0.28), rgba(255, 184, 77, 0.22));
-}
-
-.action-btn.active {
-  background: linear-gradient(135deg, rgba(49, 209, 255, 0.22), rgba(52, 211, 153, 0.18));
-  border-color: rgba(49, 209, 255, 0.3);
-  color: #dffeff;
-}
-
 .queue-item {
   grid-template-columns: 42px 1fr auto;
 }
@@ -802,7 +826,8 @@ input[type='range'] {
 
   .stats-row,
   .decks-wrap,
-  .console-body {
+  .console-body,
+  .eq-row {
     grid-template-columns: 1fr;
     display: grid;
   }

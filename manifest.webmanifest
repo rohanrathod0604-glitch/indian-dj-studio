@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#07131b" />
     <meta
       name="description"
-      content="Rythm Raj Studio is an Indian DJ mixer app with online/offline support, installable app mode, waveform editor, cue points, and a real music library."
+      content="Realistic DJ dashboard with beat matching, waveform drag, cue points, EQ, gain, and installable app support."
     />
     <title>Rythm Raj DJ Studio</title>
     <link rel="manifest" href="./manifest.webmanifest" />
@@ -78,7 +78,7 @@
             </div>
             <div class="stat-card">
               <span>Tempo</span>
-              <strong>128 BPM</strong>
+              <strong id="tempoReadout">128 BPM</strong>
             </div>
             <div class="stat-card">
               <span>Genres</span>
@@ -98,6 +98,11 @@
                   <h3 id="deckATitle">BollyBeat Rush</h3>
                 </div>
                 <div class="status-bubble online">LIVE</div>
+              </div>
+
+              <div class="deck-meta-row">
+                <span class="chip">BPM <strong id="deckABpm">128</strong></span>
+                <span class="chip danger" id="deckALock">Locked</span>
               </div>
 
               <div class="artwork artwork-a">
@@ -120,7 +125,8 @@
                   <span>Waveform Editor</span>
                   <span class="mini-tag">A</span>
                 </div>
-                <div class="waveform-shell" id="waveformShellA">
+                <div class="waveform-shell" id="waveformShellA" data-deck="A">
+                  <div class="beat-grid beat-grid-a"></div>
                   <div class="waveform-bars" id="waveformA"></div>
                   <div class="playhead" id="playheadA" style="left: 22%"></div>
                   <div class="cue-marker cue-a" data-deck="A" data-cue="left" style="left: 14%">
@@ -136,16 +142,25 @@
                 <button class="mini-btn">Cue</button>
                 <button class="mini-btn" id="playA">Pause</button>
                 <button class="mini-btn" id="syncA">Sync</button>
+                <button class="mini-btn accent" id="lockA">Lock</button>
               </div>
 
-              <div class="meters">
-                <div class="meter-box">
-                  <span>Gain</span>
-                  <input type="range" min="0" max="100" value="72" />
+              <div class="eq-row">
+                <div class="eq-control">
+                  <label>Low</label>
+                  <input id="lowEQ_A" type="range" min="0" max="100" value="66" />
                 </div>
-                <div class="meter-box">
-                  <span>Tempo</span>
-                  <input type="range" min="0" max="100" value="56" />
+                <div class="eq-control">
+                  <label>Mid</label>
+                  <input id="midEQ_A" type="range" min="0" max="100" value="60" />
+                </div>
+                <div class="eq-control">
+                  <label>High</label>
+                  <input id="highEQ_A" type="range" min="0" max="100" value="58" />
+                </div>
+                <div class="eq-control">
+                  <label>Gain</label>
+                  <input id="gainA" type="range" min="0" max="100" value="72" />
                 </div>
               </div>
             </article>
@@ -157,6 +172,11 @@
                   <h3 id="deckBTitle">Punjab Sunset</h3>
                 </div>
                 <div class="status-bubble">READY</div>
+              </div>
+
+              <div class="deck-meta-row">
+                <span class="chip">BPM <strong id="deckBBpm">132</strong></span>
+                <span class="chip" id="deckBLock">Unlocked</span>
               </div>
 
               <div class="artwork artwork-b">
@@ -179,7 +199,8 @@
                   <span>Waveform Editor</span>
                   <span class="mini-tag">B</span>
                 </div>
-                <div class="waveform-shell" id="waveformShellB">
+                <div class="waveform-shell" id="waveformShellB" data-deck="B">
+                  <div class="beat-grid beat-grid-b"></div>
                   <div class="waveform-bars" id="waveformB"></div>
                   <div class="playhead" id="playheadB" style="left: 38%"></div>
                   <div class="cue-marker cue-a" data-deck="B" data-cue="left" style="left: 18%">
@@ -195,16 +216,25 @@
                 <button class="mini-btn">Cue</button>
                 <button class="mini-btn" id="playB">Play</button>
                 <button class="mini-btn" id="syncB">Sync</button>
+                <button class="mini-btn accent" id="lockB">Lock</button>
               </div>
 
-              <div class="meters">
-                <div class="meter-box">
-                  <span>Gain</span>
-                  <input type="range" min="0" max="100" value="65" />
+              <div class="eq-row">
+                <div class="eq-control">
+                  <label>Low</label>
+                  <input id="lowEQ_B" type="range" min="0" max="100" value="58" />
                 </div>
-                <div class="meter-box">
-                  <span>Tempo</span>
-                  <input type="range" min="0" max="100" value="48" />
+                <div class="eq-control">
+                  <label>Mid</label>
+                  <input id="midEQ_B" type="range" min="0" max="100" value="55" />
+                </div>
+                <div class="eq-control">
+                  <label>High</label>
+                  <input id="highEQ_B" type="range" min="0" max="100" value="68" />
+                </div>
+                <div class="eq-control">
+                  <label>Gain</label>
+                  <input id="gainB" type="range" min="0" max="100" value="65" />
                 </div>
               </div>
             </article>
